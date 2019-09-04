@@ -1,6 +1,6 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from users.serializers import UserDisplaySerializer
+from users.api.serializers import UserDisplaySerializer
 
 
 class CurrentUserAPIView(APIView):
