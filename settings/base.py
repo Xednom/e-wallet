@@ -16,6 +16,7 @@ SECRET_KEY = env('DJANGO_SECRET_KEY')
 
 LOCAL_APPS = [
     'users',
+    'wallet',
     'django_countries',
 ]
 
