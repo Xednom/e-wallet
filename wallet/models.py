@@ -1,4 +1,5 @@
 import uuid
+from decimal import Decimal
 from django.conf import settings
 
 from django.db import models
@@ -14,8 +15,8 @@ class Cash(models.Model):
     card_details = models.CharField(max_length=150)
     card_type = models.CharField(max_length=150, choices=CARD_TYPE)
     total_amount = models.DecimalField(max_digits=8, decimal_places=2)
-    amount_added = models.DecimalField(max_digits=8, null=True, blank=True, decimal_places=2)
-    amount_deducted = models.DecimalField(max_digits=8, null=True, blank=True, decimal_places=2)
+    amount_added = models.DecimalField(max_digits=8, default=0, null=True, blank=True, decimal_places=2,)
+    amount_deducted = models.DecimalField(max_digits=8, default=0, null=True, blank=True, decimal_places=2,)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
 
     class Meta:
@@ -25,3 +26,11 @@ class Cash(models.Model):
 
     def __str__(self):
         return '%s' % (self.user)
+
+    def calculate_amount_added(self):
+        amount = self.total_amount + self.amount_added
+        return Decimal(amount)
+    
+    def save(self, *args, **kwargs):
+        self.total_amount = self.calculate_amount_added()
+        super().save(*args, **kwargs)
