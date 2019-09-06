@@ -40,6 +40,7 @@ THIRD_PARTY_APPS = [
     'rest_auth.registration',
     'django_filters',
     'crispy_forms',
+    'webpack_loader'
 ]
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
@@ -94,7 +95,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10
 }
-
+# telling Django webpack loader where the stats files are
 WEBPACK_LOADER = {
     'DEFAULT': {
         'BUNDLE_DIR_NAME': 'dist/',
