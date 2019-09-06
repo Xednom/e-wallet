@@ -4,7 +4,6 @@ from wallet.models import Cash
 
 class CashSerializer(serializers.ModelSerializer):
     date = serializers.SerializerMethodField()
-    card_details = serializers.StringRelatedField(read_only=True)
     user = serializers.SerializerMethodField()
 
     class Meta:
