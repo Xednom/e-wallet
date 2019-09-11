@@ -18,15 +18,6 @@
             </div>
           </div>
         </div>
-        <div class="col-md-4 col-sm-12">
-          <div class="card border-info mb-3 cash-in" style="max-width: 18rem;">
-            <div class="card-header bg-transparent border-info">Total Amount</div>
-            <div class="card-body text-info">
-              <p v-for="cash in cashes" :key="cash"
-              class="card-text">&#8369;{{ Number(cash.total_amount).toLocaleString() }}</p>
-            </div>
-          </div>
-        </div>
       </div>
       <div class="card wallet-transactions">
         <h5 class="card-header">Wallet Transactions</h5>
@@ -42,7 +33,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="cash in cashes" :key="cash">
+              <tr v-for="cash in cashes" :key="cash.id">
                 <td>{{ cash.date }}</td>
                 <td>{{ cash.card_type }}</td>
                 <td>{{ Number(cash.amount_added).toLocaleString() }}</td>

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from wallet.models import Cash
+from wallet.models import Cash, Wallet
 
 
 class CashSerializer(serializers.ModelSerializer):
@@ -16,3 +16,16 @@ class CashSerializer(serializers.ModelSerializer):
 
     def get_date(self, instance):
         return instance.date.strftime("%B %d, %Y")
+
+
+class WalletSerializer(serializers.ModelSerializer):
+
+    user = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Wallet
+        fields = '__all__'
+
+    def get_user(self, instance):
+        request = self.context.get("request")
+        return '%s - %s' % (request.first_name, request.last_name)

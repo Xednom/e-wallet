@@ -5,8 +5,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .serializers import CashSerializer
-from wallet.models import Cash
+from .serializers import CashSerializer, WalletSerializer
+from wallet.models import Cash, Wallet
 
 
 class CashViewSet(viewsets.ModelViewSet):
@@ -20,7 +20,17 @@ class CashViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         return serializer.save(user=self.request.user)
-    
+
+
+class WalletViewSet(viewsets.ModelViewSet):
+    serializer_class = WalletSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        wallet_list = Wallet.objects.all()
+        qs = wallet_list.filter(user__username=self.request.user)
+        return qs
+
 
 class CashCreateAPIView(generics.CreateAPIView):
     serializer_class = CashSerializer
