@@ -22,9 +22,9 @@
               data-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="false"
-            >Dropdown link</a>
+            ><i class="fa fa-user"></i></a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <router-link :to="{ name: 'profile' }" class="dropdown-item">Profile</router-link>
+              <router-link :to="{ name: 'profile' }" class="dropdown-item"><i class="fa fa-user"></i> Profile</router-link>
               <hr>
               <a class="dropdown-item" href="/accounts/logout/">Logout</a>
             </div>
@@ -42,6 +42,9 @@ export default {
 </script>
 
 <style>
+.nav-item{
+  margin: 0 20px 0 0;
+}
 .my-navbar {
   border-bottom: 1px solid #ddd;
 }

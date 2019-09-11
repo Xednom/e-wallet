@@ -17,5 +17,5 @@ class CustomUser(AbstractUser):
         verbose_name_plural = 'Users'
         ordering = ['-created_at']
 
-    def __str_(self):
+    def __str__(self):
         return self.username

@@ -26,6 +26,7 @@ class CustomUserAdmin(UserAdmin):
                 'first_name',
                 'last_name',
                 'email',
+                'address',
                 'country',
                 'state',
                 'zip_code',
