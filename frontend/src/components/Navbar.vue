@@ -24,7 +24,7 @@
               aria-expanded="false"
             >Dropdown link</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a href="#">Profile</a>
+              <router-link :to="{ name: 'profile' }" class="dropdown-item">Profile</router-link>
               <hr>
               <a class="dropdown-item" href="/accounts/logout/">Logout</a>
             </div>
