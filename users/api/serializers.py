@@ -12,5 +12,5 @@ class UserDisplaySerializer(serializers.ModelSerializer):
         fields = (
             'username', 'first_name', 'last_name',
             'email_address', 'address', 'country',
-            'state', 'zip_code'
+            'state', 'zip_code', 'balance'
         )

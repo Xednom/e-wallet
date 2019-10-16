@@ -30,6 +30,7 @@ class CustomUserAdmin(UserAdmin):
                 'country',
                 'state',
                 'zip_code',
+                'balance',
             )
         }),
         ('Permissions', {

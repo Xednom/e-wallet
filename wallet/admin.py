@@ -14,6 +14,7 @@ class CashProfile(admin.ModelAdmin):
             'fields': (
                 'date',
                 'user',
+                'wallet_user',
                 'card_details',
                 'card_type',
                 'total_amount',
@@ -34,6 +35,7 @@ class WalletProfile(admin.ModelAdmin):
         ("User wallet Informations", {
             'fields': (
                 'date_added',
+                'name',
                 'user',
                 'balance',
                 'card_type',

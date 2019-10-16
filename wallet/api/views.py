@@ -15,11 +15,12 @@ class CashViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         cash_list = Cash.objects.all()
-        qs = cash_list.filter(user__username=self.request.user)
+        qs = cash_list.filter(user=self.request.user)
         return qs
 
     def perform_create(self, serializer):
-        return serializer.save(user=self.request.user)
+        user = self.request.user
+        return serializer.save(user=user)
 
 
 class WalletViewSet(viewsets.ModelViewSet):
@@ -30,23 +31,21 @@ class WalletViewSet(viewsets.ModelViewSet):
         wallet_list = Wallet.objects.all()
         qs = wallet_list.filter(user__username=self.request.user)
         return qs
+    
+    def perform_create(self, serializer):
+        if Wallet.objects.filter(user__username=self.request.user).exists():
+            raise ValidationError("User with this ID already exists.")
+        return serializer.save(user=self.request.user)
 
 
 class CashCreateAPIView(generics.CreateAPIView):
+    queryset = Cash.objects.all()
     serializer_class = CashSerializer
     permission_classes = [IsAuthenticated]
 
-    def get_queryset(self):
-        cash_list = Cash.objects.all()
-        qs = cash_list.filter(user__username = self.request.user)
-        return qs
-
     def perform_create(self, serializer):
         user = self.request.user
-        cash_id = self.kwargs.get('id')
-        cash = get_object_or_404(Cash, id=cash_id)
-        serializer.save(user=user, cash=cash)
-
+        serializer.save(user=user, wallet_user=user)
 
 class CashRUDAPView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CashSerializer
@@ -56,3 +55,13 @@ class CashRUDAPView(generics.RetrieveUpdateDestroyAPIView):
         cash_list = Cash.objects.all()
         qs = cash_list.filter(user=self.request.user)
         return qs
+
+
+class CashListAPIView(generics.ListAPIView):
+    serializer_class = CashSerializer
+    permision_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        cash_list = Cash.objects.all()
+        user = self.request.user
+        return cash_list.filter(user__username=user)

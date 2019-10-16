@@ -9,6 +9,7 @@
         <p class="card-text">Address: {{ user.address }}</p>
         <p class="card-text">Country: {{ user.country }}</p>
         <p class="card-text">State: {{ user.state }}</p>
+        <p class="card-text">Balance: {{ Number(user.balance).toLocaleString() }}</p>
         </div>
       </div>
     </div>
